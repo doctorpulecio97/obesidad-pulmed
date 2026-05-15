@@ -99,7 +99,7 @@
     }
     .hero p { color: rgba(255,255,255,0.8); font-size: 0.95rem; line-height: 1.6; max-width: 520px; }
 
-    main { max-width: 680px; margin: 0 auto; padding: 16px 16px 72px; }
+    main { max-width: 920px; margin: 0 auto; padding: 16px 16px 72px; }
 
     .card {
       background: var(--white);
@@ -236,12 +236,6 @@
     .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--primary); flex-shrink: 0; margin-top: 7px; }
     .dot-warn { background: #f59e0b; }
 
-    .rec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .rec-card { background: var(--muted-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; }
-    .rec-icon { font-size: 1.4rem; margin-bottom: 6px; }
-    .rec-title { font-size: 0.78rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
-    .rec-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
-
     .meta-card { background: rgba(65,145,220,0.06); border: 1.5px solid rgba(65,145,220,0.2); border-radius: var(--radius); padding: 18px 22px; text-align: center; margin-bottom: 12px; }
     .meta-label { font-size: 0.72rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
     .meta-value { font-size: 1.15rem; font-weight: 800; color: var(--primary); }
@@ -252,7 +246,6 @@
     .advertencia { background: #fffbeb; border: 1px solid #fde68a; border-radius: var(--radius); padding: 13px 16px; font-size: 0.76rem; color: #78350f; line-height: 1.6; margin-bottom: 20px; }
     .advertencia strong { font-weight: 700; }
 
-    /* Plan headers */
     .plan-header-card {
       border-radius: 14px;
       padding: 20px 22px;
@@ -267,32 +260,59 @@
     .plan-titulo { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1rem; font-weight: 700; color: #fff; }
     .plan-subtitulo { font-size: 0.78rem; color: rgba(255,255,255,0.7); margin-top: 2px; }
 
-    /* Días alimentación */
-    .dias-scroll { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
-    .dia-card { background: var(--white); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; box-shadow: var(--shadow); }
-    .dia-nombre { background: var(--navy); color: var(--white); font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.8rem; font-weight: 700; padding: 10px 16px; letter-spacing: 0.5px; text-transform: uppercase; }
-    .comida-row { padding: 12px 16px; border-bottom: 1px solid var(--border); }
-    .comida-row:last-child { border-bottom: none; }
-    .snack-row { background: var(--muted-bg); }
-    .comida-label { font-size: 0.7rem; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
-    .comida-nombre { font-size: 0.88rem; font-weight: 700; color: var(--text); margin-bottom: 3px; }
-    .comida-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
-    .comida-opciones { font-size: 0.75rem; color: var(--primary); margin-top: 4px; font-style: italic; }
+    /* TABLA DE ALIMENTACIÓN */
+    .tabla-wrap { overflow-x: auto; background: var(--white); border-radius: 14px; box-shadow: var(--shadow); border: 1px solid var(--border); margin-bottom: 16px; }
+    .tabla-alim { width: 100%; border-collapse: collapse; font-size: 0.78rem; min-width: 720px; }
+    .tabla-alim thead { background: var(--navy); }
+    .tabla-alim th { color: var(--white); font-weight: 700; padding: 12px 10px; text-align: left; font-size: 0.72rem; letter-spacing: 0.5px; text-transform: uppercase; }
+    .tabla-alim th:first-child { width: 80px; }
+    .tabla-alim td { padding: 10px; border-bottom: 1px solid var(--border); border-right: 1px solid var(--border); vertical-align: top; line-height: 1.45; color: var(--text); }
+    .tabla-alim td:last-child { border-right: none; }
+    .tabla-alim tr:last-child td { border-bottom: none; }
+    .tabla-alim tr:nth-child(even) td { background: var(--muted-bg); }
+    .tabla-alim .col-dia { background: var(--navy) !important; color: var(--white); font-weight: 700; font-size: 0.75rem; text-align: center; text-transform: uppercase; letter-spacing: 0.5px; }
+    .tabla-alim .comida-nombre { font-weight: 700; color: var(--text); display: block; margin-bottom: 2px; }
+    .tabla-alim .comida-desc { color: var(--muted); font-size: 0.74rem; }
 
-    /* Semanas ejercicio */
-    .semana-card { background: var(--white); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; box-shadow: var(--shadow); margin-bottom: 10px; }
-    .semana-header { background: var(--navy); padding: 12px 16px; display: flex; align-items: center; gap: 10px; }
-    .semana-num { background: var(--cyan); color: var(--navy); font-size: 0.7rem; font-weight: 800; padding: 3px 8px; border-radius: 20px; }
-    .semana-titulo { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.88rem; font-weight: 700; color: var(--white); }
-    .semana-desc { padding: 10px 16px; font-size: 0.82rem; color: var(--muted); line-height: 1.5; border-bottom: 1px solid var(--border); }
-    .ejercicio-dias { display: flex; flex-direction: column; }
-    .ejercicio-dia { padding: 10px 16px; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 70px 1fr; gap: 4px 12px; }
-    .ejercicio-dia:last-child { border-bottom: none; }
-    .ejercicio-dia.descanso { background: var(--muted-bg); opacity: 0.7; }
-    .ej-dia-nombre { font-size: 0.75rem; font-weight: 700; color: var(--primary); grid-row: 1; }
-    .ej-tipo { font-size: 0.7rem; color: var(--muted); grid-row: 2; }
-    .ej-duracion { font-size: 0.75rem; font-weight: 700; color: var(--navy); grid-column: 2; grid-row: 1; text-align: right; }
-    .ej-actividad { font-size: 0.82rem; color: var(--text); line-height: 1.5; grid-column: 1 / -1; grid-row: 3; padding-top: 4px; }
+    /* FASE BLOCK */
+    .fase-block { margin-bottom: 24px; }
+    .fase-header {
+      background: linear-gradient(135deg, var(--blue) 0%, var(--primary) 100%);
+      color: var(--white);
+      padding: 14px 20px;
+      border-radius: 12px 12px 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .fase-titulo { font-size: 0.95rem; font-weight: 800; letter-spacing: 0.3px; }
+    .fase-rango { font-size: 0.72rem; background: rgba(255,255,255,0.18); padding: 3px 10px; border-radius: 20px; font-weight: 700; }
+    .fase-desc {
+      background: rgba(65,145,220,0.08);
+      border-left: 3px solid var(--primary);
+      padding: 12px 18px;
+      font-size: 0.82rem;
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    /* TABLA DE EJERCICIO */
+    .tabla-ej-wrap { overflow-x: auto; background: var(--white); border: 1px solid var(--border); border-top: none; border-radius: 0 0 12px 12px; }
+    .tabla-ej { width: 100%; border-collapse: collapse; font-size: 0.74rem; min-width: 720px; }
+    .tabla-ej thead { background: var(--navy); }
+    .tabla-ej th { color: var(--white); font-weight: 700; padding: 10px 8px; text-align: center; font-size: 0.68rem; letter-spacing: 0.5px; text-transform: uppercase; }
+    .tabla-ej th:first-child { width: 70px; }
+    .tabla-ej td { padding: 8px 8px; border-bottom: 1px solid var(--border); border-right: 1px solid var(--border); text-align: center; line-height: 1.4; }
+    .tabla-ej td:last-child { border-right: none; }
+    .tabla-ej tr:last-child td { border-bottom: none; }
+    .tabla-ej tr:nth-child(even) td:not(.col-sem) { background: var(--muted-bg); }
+    .tabla-ej .col-sem { background: var(--navy) !important; color: var(--white); font-weight: 800; font-size: 0.75rem; }
+    .tabla-ej .tipo-cell { font-weight: 700; color: var(--text); font-size: 0.72rem; }
+    .tabla-ej .tipo-descanso { color: var(--muted); font-style: italic; opacity: 0.65; }
+    .tabla-ej .dur-cell { font-size: 0.7rem; color: var(--primary); font-weight: 700; margin-top: 2px; }
+    .tabla-ej .act-cell { font-size: 0.68rem; color: var(--muted); margin-top: 3px; line-height: 1.35; }
 
     footer { text-align: center; padding: 20px; font-size: 0.75rem; color: var(--muted); line-height: 1.6; }
     footer a { color: var(--primary); text-decoration: none; font-weight: 600; }
@@ -300,7 +320,6 @@
     @media (max-width: 520px) {
       .card { padding: 22px 16px; }
       .form-grid { grid-template-columns: 1fr; }
-      .rec-grid { grid-template-columns: 1fr; }
       .hero { padding: 28px 16px 36px; }
       main { margin-top: 0; }
     }
@@ -470,63 +489,93 @@
       `<div class="list-item"><div class="dot dot-warn"></div><span>${ri}</span></div>`
     ).join('');
 
+    // PLAN ALIMENTACIÓN - TABLA
     const pa = r.plan_alimentacion || {};
     const principiosHTML = (pa.principios || []).map(p =>
       `<div class="list-item"><div class="dot"></div><span>${p}</span></div>`
     ).join('');
 
-    const diasHTML = (pa.semana || []).map(d => `
-      <div class="dia-card">
-        <div class="dia-nombre">${d.dia}</div>
-        <div class="comida-row">
-          <div class="comida-label">🌅 Desayuno</div>
-          <div class="comida-nombre">${d.desayuno?.nombre || ''}</div>
-          <div class="comida-desc">${d.desayuno?.descripcion || ''}</div>
-          ${(d.desayuno?.opciones || []).length ? `<div class="comida-opciones">Alternativas: ${d.desayuno.opciones.join(' · ')}</div>` : ''}
-        </div>
-        <div class="comida-row snack-row">
-          <div class="comida-label">🍎 Media mañana</div>
-          <div class="comida-desc">${d.media_manana || ''}</div>
-        </div>
-        <div class="comida-row">
-          <div class="comida-label">☀️ Almuerzo</div>
-          <div class="comida-nombre">${d.almuerzo?.nombre || ''}</div>
-          <div class="comida-desc">${d.almuerzo?.descripcion || ''}</div>
-          ${(d.almuerzo?.opciones || []).length ? `<div class="comida-opciones">Alternativas: ${d.almuerzo.opciones.join(' · ')}</div>` : ''}
-        </div>
-        <div class="comida-row snack-row">
-          <div class="comida-label">🫐 Merienda</div>
-          <div class="comida-desc">${d.merienda || ''}</div>
-        </div>
-        <div class="comida-row">
-          <div class="comida-label">🌙 Cena</div>
-          <div class="comida-nombre">${d.cena?.nombre || ''}</div>
-          <div class="comida-desc">${d.cena?.descripcion || ''}</div>
-          ${(d.cena?.opciones || []).length ? `<div class="comida-opciones">Alternativas: ${d.cena.opciones.join(' · ')}</div>` : ''}
-        </div>
-      </div>
+    const filasAlimentacion = (pa.semana || []).map(d => `
+      <tr>
+        <td class="col-dia">${d.dia}</td>
+        <td>
+          <span class="comida-nombre">${d.desayuno?.nombre || ''}</span>
+          <span class="comida-desc">${d.desayuno?.descripcion || ''}</span>
+        </td>
+        <td><span class="comida-desc">${d.media_manana || ''}</span></td>
+        <td>
+          <span class="comida-nombre">${d.almuerzo?.nombre || ''}</span>
+          <span class="comida-desc">${d.almuerzo?.descripcion || ''}</span>
+        </td>
+        <td><span class="comida-desc">${d.merienda || ''}</span></td>
+        <td>
+          <span class="comida-nombre">${d.cena?.nombre || ''}</span>
+          <span class="comida-desc">${d.cena?.descripcion || ''}</span>
+        </td>
+      </tr>
     `).join('');
 
-    const pe = r.plan_ejercicio || {};
-    const semanasHTML = (pe.semanas || []).map(s => `
-      <div class="semana-card">
-        <div class="semana-header">
-          <span class="semana-num">Semana ${s.semana}</span>
-          <span class="semana-titulo">${s.titulo}</span>
-        </div>
-        <div class="semana-desc">${s.descripcion}</div>
-        <div class="ejercicio-dias">
-          ${(s.dias || []).map(d => `
-            <div class="ejercicio-dia ${d.tipo === 'Descanso' ? 'descanso' : ''}">
-              <div class="ej-dia-nombre">${d.dia}</div>
-              <div class="ej-tipo">${d.tipo}</div>
-              <div class="ej-duracion">${d.duracion}</div>
-              <div class="ej-actividad">${d.actividad}</div>
-            </div>
-          `).join('')}
-        </div>
+    const tablaAlimentacion = `
+      <div class="tabla-wrap">
+        <table class="tabla-alim">
+          <thead>
+            <tr>
+              <th>Día</th>
+              <th>🌅 Desayuno</th>
+              <th>🍎 Media Mañana</th>
+              <th>☀️ Almuerzo</th>
+              <th>🫐 Merienda</th>
+              <th>🌙 Cena</th>
+            </tr>
+          </thead>
+          <tbody>${filasAlimentacion}</tbody>
+        </table>
       </div>
-    `).join('');
+    `;
+
+    // PLAN EJERCICIO - TABLAS POR FASE
+    const pe = r.plan_ejercicio || {};
+    const fasesHTML = (pe.fases || []).map(fase => {
+      const filasSemanas = (fase.semanas || []).map(s => `
+        <tr>
+          <td class="col-sem">S${s.semana}</td>
+          ${(s.dias || []).map(d => `
+            <td class="${d.tipo === 'Descanso' ? 'tipo-descanso' : ''}">
+              <div class="tipo-cell">${d.tipo}</div>
+              <div class="dur-cell">${d.duracion}</div>
+              <div class="act-cell">${d.actividad}</div>
+            </td>
+          `).join('')}
+        </tr>
+      `).join('');
+
+      return `
+        <div class="fase-block">
+          <div class="fase-header">
+            <div class="fase-titulo">${fase.nombre}</div>
+            <div class="fase-rango">${fase.semanas_rango}</div>
+          </div>
+          <div class="fase-desc">${fase.descripcion}</div>
+          <div class="tabla-ej-wrap">
+            <table class="tabla-ej">
+              <thead>
+                <tr>
+                  <th>Sem</th>
+                  <th>Lun</th>
+                  <th>Mar</th>
+                  <th>Mié</th>
+                  <th>Jue</th>
+                  <th>Vie</th>
+                  <th>Sáb</th>
+                  <th>Dom</th>
+                </tr>
+              </thead>
+              <tbody>${filasSemanas}</tbody>
+            </table>
+          </div>
+        </div>
+      `;
+    }).join('');
 
     const html = `
       <div class="result-hero">
@@ -554,20 +603,20 @@
         </div>
       </div>
       ${principiosHTML ? `<div class="card"><div class="result-section-title">📌 Principios clave para ti</div>${principiosHTML}</div>` : ''}
-      <div class="dias-scroll">${diasHTML}</div>
+      ${tablaAlimentacion}
 
       <div class="plan-header-card ejercicio">
         <div class="plan-icon">🏃</div>
         <div>
-          <div class="plan-titulo">Plan de Ejercicio Progresivo</div>
+          <div class="plan-titulo">Plan de Ejercicio · 12 Semanas</div>
           <div class="plan-subtitulo">${pe.nivel_actual || ''}</div>
         </div>
       </div>
-      <div class="card" style="margin-bottom:8px">
+      <div class="card" style="margin-bottom:14px">
         <div class="result-section-title">🎯 Tu objetivo</div>
         <p style="font-size:0.88rem;color:var(--muted);line-height:1.6;">${pe.objetivo || ''}</p>
       </div>
-      ${semanasHTML}
+      ${fasesHTML}
 
       <div class="cierre-card"><p>✨ ${r.mensaje_cierre}</p></div>
 
@@ -591,7 +640,6 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  // Autocompletado desde URL params (viene de Plan 90 by PulMed)
   window.addEventListener('DOMContentLoaded', () => {
     const params = new URLSearchParams(window.location.search);
     if (params.toString().length === 0) return;
