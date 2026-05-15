@@ -88,8 +88,9 @@ IMPORTANTE: Responde SOLO con el JSON válido, sin texto adicional, sin markdown
       messages: [{ role: 'user', content: prompt }]
     });
 
-    const text = response.content[0].text.trim();
-    const resultado = JSON.parse(text);
+    let text = response.content[0].text.trim();
+text = text.replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/```\s*$/i, '').trim();
+const resultado = JSON.parse(text);
 
     res.json({
       ok: true,
