@@ -46,7 +46,7 @@ Reemplaza todos los valores "texto", "op1", "h1", etc. con contenido REAL, detal
   try {
     const response = await client.messages.create({
       model: 'claude-sonnet-4-5',
-      max_tokens: 8000,
+      max_tokens: 16000,
       messages: [{ role: 'user', content: prompt }]
     });
 
