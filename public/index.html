@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Plan 90 · Reporte Personalizado · PulMed</title>
+  <title>Plan 90 · Evaluación de Salud · PulMed</title>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
     :root {
@@ -99,7 +99,7 @@
     }
     .hero p { color: rgba(255,255,255,0.8); font-size: 0.95rem; line-height: 1.6; max-width: 520px; }
 
-    main { max-width: 920px; margin: 0 auto; padding: 16px 16px 72px; }
+    main { max-width: 680px; margin: 0 auto; padding: 16px 16px 72px; }
 
     .card {
       background: var(--white);
@@ -240,79 +240,90 @@
     .meta-label { font-size: 0.72rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
     .meta-value { font-size: 1.15rem; font-weight: 800; color: var(--primary); }
 
-    .cierre-card { background: var(--navy); border-radius: var(--radius); padding: 20px 22px; text-align: center; margin-bottom: 12px; }
+    .cierre-card { background: var(--navy); border-radius: var(--radius); padding: 20px 22px; text-align: center; margin-bottom: 16px; }
     .cierre-card p { font-size: 0.95rem; font-weight: 600; color: rgba(255,255,255,0.92); line-height: 1.6; }
 
     .advertencia { background: #fffbeb; border: 1px solid #fde68a; border-radius: var(--radius); padding: 13px 16px; font-size: 0.76rem; color: #78350f; line-height: 1.6; margin-bottom: 20px; }
     .advertencia strong { font-weight: 700; }
 
-    .plan-header-card {
-      border-radius: 14px;
-      padding: 20px 22px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 12px;
+    /* ==== MURO DE PAGO / PLANES ==== */
+    .planes-intro {
+      background: linear-gradient(135deg, #0d4a1a 0%, #1a7a30 100%);
+      border-radius: 16px;
+      padding: 28px 24px;
+      color: #fff;
+      text-align: center;
+      margin-bottom: 14px;
+      position: relative;
+      overflow: hidden;
     }
-    .plan-header-card.alimentacion { background: linear-gradient(135deg, #0d4a1a 0%, #1a7a30 100%); }
-    .plan-header-card.ejercicio { background: linear-gradient(135deg, #1a2a6b 0%, #1E3C82 100%); }
-    .plan-icon { font-size: 2rem; }
-    .plan-titulo { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1rem; font-weight: 700; color: #fff; }
-    .plan-subtitulo { font-size: 0.78rem; color: rgba(255,255,255,0.7); margin-top: 2px; }
+    .planes-intro::after { content: ''; position: absolute; width: 200px; height: 200px; background: radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 70%); top: -60px; right: -40px; border-radius: 50%; }
+    .planes-eyebrow { font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.7); margin-bottom: 8px; }
+    .planes-titulo { font-size: 1.35rem; font-weight: 800; line-height: 1.3; margin-bottom: 10px; }
+    .planes-subtitulo { font-size: 0.9rem; line-height: 1.6; color: rgba(255,255,255,0.88); position: relative; }
 
-    /* TABLA DE ALIMENTACIÓN */
-    .tabla-wrap { overflow-x: auto; background: var(--white); border-radius: 14px; box-shadow: var(--shadow); border: 1px solid var(--border); margin-bottom: 16px; }
-    .tabla-alim { width: 100%; border-collapse: collapse; font-size: 0.78rem; min-width: 720px; }
-    .tabla-alim thead { background: var(--navy); }
-    .tabla-alim th { color: var(--white); font-weight: 700; padding: 12px 10px; text-align: left; font-size: 0.72rem; letter-spacing: 0.5px; text-transform: uppercase; }
-    .tabla-alim th:first-child { width: 80px; }
-    .tabla-alim td { padding: 10px; border-bottom: 1px solid var(--border); border-right: 1px solid var(--border); vertical-align: top; line-height: 1.45; color: var(--text); }
-    .tabla-alim td:last-child { border-right: none; }
-    .tabla-alim tr:last-child td { border-bottom: none; }
-    .tabla-alim tr:nth-child(even) td { background: var(--muted-bg); }
-    .tabla-alim .col-dia { background: var(--navy) !important; color: var(--white); font-weight: 700; font-size: 0.75rem; text-align: center; text-transform: uppercase; letter-spacing: 0.5px; }
-    .tabla-alim .comida-nombre { font-weight: 700; color: var(--text); display: block; margin-bottom: 2px; }
-    .tabla-alim .comida-desc { color: var(--muted); font-size: 0.74rem; }
-
-    /* FASE BLOCK */
-    .fase-block { margin-bottom: 24px; }
-    .fase-header {
-      background: linear-gradient(135deg, var(--blue) 0%, var(--primary) 100%);
+    .planes-grid { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+    .plan-card {
+      background: var(--white);
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      padding: 22px;
+      position: relative;
+      transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s;
+    }
+    .plan-card.destacado { border-color: var(--primary); box-shadow: 0 8px 28px rgba(65,145,220,0.18); }
+    .plan-card.destacado::before {
+      content: 'Más elegido';
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--primary);
       color: var(--white);
-      padding: 14px 20px;
-      border-radius: 12px 12px 0 0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 8px;
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 20px;
     }
-    .fase-titulo { font-size: 0.95rem; font-weight: 800; letter-spacing: 0.3px; }
-    .fase-rango { font-size: 0.72rem; background: rgba(255,255,255,0.18); padding: 3px 10px; border-radius: 20px; font-weight: 700; }
-    .fase-desc {
-      background: rgba(65,145,220,0.08);
-      border-left: 3px solid var(--primary);
-      padding: 12px 18px;
+    .plan-nombre { font-size: 0.95rem; font-weight: 800; color: var(--navy); margin-bottom: 4px; }
+    .plan-precio { font-size: 1.5rem; font-weight: 800; color: var(--primary); margin-bottom: 12px; }
+    .plan-precio .moneda { font-size: 0.85rem; color: var(--muted); font-weight: 600; margin-right: 4px; }
+    .plan-features { list-style: none; padding: 0; margin: 0 0 16px 0; }
+    .plan-features li {
       font-size: 0.82rem;
       color: var(--text);
-      line-height: 1.55;
+      line-height: 1.5;
+      padding: 5px 0;
+      padding-left: 22px;
+      position: relative;
     }
-
-    /* TABLA DE EJERCICIO */
-    .tabla-ej-wrap { overflow-x: auto; background: var(--white); border: 1px solid var(--border); border-top: none; border-radius: 0 0 12px 12px; }
-    .tabla-ej { width: 100%; border-collapse: collapse; font-size: 0.74rem; min-width: 720px; }
-    .tabla-ej thead { background: var(--navy); }
-    .tabla-ej th { color: var(--white); font-weight: 700; padding: 10px 8px; text-align: center; font-size: 0.68rem; letter-spacing: 0.5px; text-transform: uppercase; }
-    .tabla-ej th:first-child { width: 70px; }
-    .tabla-ej td { padding: 8px 8px; border-bottom: 1px solid var(--border); border-right: 1px solid var(--border); text-align: center; line-height: 1.4; }
-    .tabla-ej td:last-child { border-right: none; }
-    .tabla-ej tr:last-child td { border-bottom: none; }
-    .tabla-ej tr:nth-child(even) td:not(.col-sem) { background: var(--muted-bg); }
-    .tabla-ej .col-sem { background: var(--navy) !important; color: var(--white); font-weight: 800; font-size: 0.75rem; }
-    .tabla-ej .tipo-cell { font-weight: 700; color: var(--text); font-size: 0.72rem; }
-    .tabla-ej .tipo-descanso { color: var(--muted); font-style: italic; opacity: 0.65; }
-    .tabla-ej .dur-cell { font-size: 0.7rem; color: var(--primary); font-weight: 700; margin-top: 2px; }
-    .tabla-ej .act-cell { font-size: 0.68rem; color: var(--muted); margin-top: 3px; line-height: 1.35; }
+    .plan-features li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      top: 4px;
+      color: #00c896;
+      font-weight: 800;
+      font-size: 0.95rem;
+    }
+    .btn-plan {
+      width: 100%;
+      padding: 13px;
+      background: var(--navy);
+      color: var(--white);
+      border: none;
+      border-radius: var(--radius);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-plan:hover { background: #0d2060; }
+    .btn-plan.destacado { background: var(--primary); }
+    .btn-plan.destacado:hover { background: var(--blue); }
 
     footer { text-align: center; padding: 20px; font-size: 0.75rem; color: var(--muted); line-height: 1.6; }
     footer a { color: var(--primary); text-decoration: none; font-weight: 600; }
@@ -334,9 +345,9 @@
 
 <div class="hero">
   <div class="hero-inner">
-    <div class="hero-tag">Reporte Plan 90</div>
-    <h1>Tu reporte médico personalizado</h1>
-    <p>Análisis completo con plan de alimentación, ejercicio y recomendaciones médicas generadas por IA específicas para ti.</p>
+    <div class="hero-tag">Evaluación gratuita</div>
+    <h1>Conoce el estado real de tu salud</h1>
+    <p>Ingresa tus datos y recibe tu radiografía de salud personalizada con análisis médico claro y orientación inicial.</p>
   </div>
 </div>
 
@@ -410,7 +421,7 @@
     </div>
 
     <button class="btn-primary" id="btnEvaluar" onclick="evaluarPeso()">
-      Generar mi reporte
+      Obtener mi radiografía gratis
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </button>
     <div class="error-msg" id="errorMsg"></div>
@@ -418,7 +429,7 @@
 
   <div id="loading">
     <div class="spinner"></div>
-    <p>Generando tu reporte personalizado…</p>
+    <p>Analizando tus datos…</p>
   </div>
 
   <div id="resultado"></div>
@@ -426,10 +437,13 @@
 
 <footer>
   Desarrollado por <a href="https://pulmedat.com" target="_blank">PulMed</a> · Dr. Nicolás Pulecio Leal<br>
-  Este reporte es orientativo y no reemplaza la consulta médica.
+  Esta evaluación es orientativa y no reemplaza la consulta médica.
 </footer>
 
 <script>
+  // Variable global para guardar los datos del paciente y poder pedir el plan premium después del pago
+  let datosPacienteActual = null;
+
   async function evaluarPeso() {
     const edad = document.getElementById('edad').value;
     const sexo = document.getElementById('sexo').value;
@@ -453,12 +467,15 @@
       habitos: document.getElementById('habitos').value
     };
 
+    // Guardamos los datos para usarlos cuando el usuario pague el plan premium
+    datosPacienteActual = datos;
+
     document.getElementById('btnEvaluar').disabled = true;
     document.getElementById('formCard').style.display = 'none';
     document.getElementById('loading').classList.add('show');
 
     try {
-      const res = await fetch('/api/evaluar', {
+      const res = await fetch('/api/radiografia', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(datos)
@@ -466,7 +483,7 @@
       const data = await res.json();
       if (!data.ok) throw new Error(data.error || 'Error desconocido');
       document.getElementById('loading').classList.remove('show');
-      mostrarResultado(data, datos.nombre);
+      mostrarRadiografia(data, datos.nombre);
     } catch (e) {
       document.getElementById('loading').classList.remove('show');
       document.getElementById('formCard').style.display = 'block';
@@ -476,7 +493,7 @@
     }
   }
 
-  function mostrarResultado(data, nombre) {
+  function mostrarRadiografia(data, nombre) {
     const { imc, resultado: r } = data;
     const nombreDisplay = nombre || 'tu evaluación';
     const riskKey = (r.categoria_riesgo || '').replace(' ', '_');
@@ -489,97 +506,9 @@
       `<div class="list-item"><div class="dot dot-warn"></div><span>${ri}</span></div>`
     ).join('');
 
-    // PLAN ALIMENTACIÓN - TABLA
-    const pa = r.plan_alimentacion || {};
-    const principiosHTML = (pa.principios || []).map(p =>
-      `<div class="list-item"><div class="dot"></div><span>${p}</span></div>`
-    ).join('');
-
-    const filasAlimentacion = (pa.semana || []).map(d => `
-      <tr>
-        <td class="col-dia">${d.dia}</td>
-        <td>
-          <span class="comida-nombre">${d.desayuno?.nombre || ''}</span>
-          <span class="comida-desc">${d.desayuno?.descripcion || ''}</span>
-        </td>
-        <td><span class="comida-desc">${d.media_manana || ''}</span></td>
-        <td>
-          <span class="comida-nombre">${d.almuerzo?.nombre || ''}</span>
-          <span class="comida-desc">${d.almuerzo?.descripcion || ''}</span>
-        </td>
-        <td><span class="comida-desc">${d.merienda || ''}</span></td>
-        <td>
-          <span class="comida-nombre">${d.cena?.nombre || ''}</span>
-          <span class="comida-desc">${d.cena?.descripcion || ''}</span>
-        </td>
-      </tr>
-    `).join('');
-
-    const tablaAlimentacion = `
-      <div class="tabla-wrap">
-        <table class="tabla-alim">
-          <thead>
-            <tr>
-              <th>Día</th>
-              <th>🌅 Desayuno</th>
-              <th>🍎 Media Mañana</th>
-              <th>☀️ Almuerzo</th>
-              <th>🫐 Merienda</th>
-              <th>🌙 Cena</th>
-            </tr>
-          </thead>
-          <tbody>${filasAlimentacion}</tbody>
-        </table>
-      </div>
-    `;
-
-    // PLAN EJERCICIO - TABLAS POR FASE
-    const pe = r.plan_ejercicio || {};
-    const fasesHTML = (pe.fases || []).map(fase => {
-      const filasSemanas = (fase.semanas || []).map(s => `
-        <tr>
-          <td class="col-sem">S${s.semana}</td>
-          ${(s.dias || []).map(d => `
-            <td class="${d.tipo === 'Descanso' ? 'tipo-descanso' : ''}">
-              <div class="tipo-cell">${d.tipo}</div>
-              <div class="dur-cell">${d.duracion}</div>
-              <div class="act-cell">${d.actividad}</div>
-            </td>
-          `).join('')}
-        </tr>
-      `).join('');
-
-      return `
-        <div class="fase-block">
-          <div class="fase-header">
-            <div class="fase-titulo">${fase.nombre}</div>
-            <div class="fase-rango">${fase.semanas_rango}</div>
-          </div>
-          <div class="fase-desc">${fase.descripcion}</div>
-          <div class="tabla-ej-wrap">
-            <table class="tabla-ej">
-              <thead>
-                <tr>
-                  <th>Sem</th>
-                  <th>Lun</th>
-                  <th>Mar</th>
-                  <th>Mié</th>
-                  <th>Jue</th>
-                  <th>Vie</th>
-                  <th>Sáb</th>
-                  <th>Dom</th>
-                </tr>
-              </thead>
-              <tbody>${filasSemanas}</tbody>
-            </table>
-          </div>
-        </div>
-      `;
-    }).join('');
-
     const html = `
       <div class="result-hero">
-        <div class="result-eyebrow">Resultados de ${nombreDisplay}</div>
+        <div class="result-eyebrow">Radiografía de salud · ${nombreDisplay}</div>
         <div class="result-mensaje">${r.mensaje_principal}</div>
         <div class="imc-row">
           <div class="imc-chip">IMC <span class="imc-num">${imc}</span> · ${r.clasificacion_imc}</div>
@@ -595,32 +524,54 @@
         <div class="meta-value">${r.meta_peso_ideal}</div>
       </div>
 
-      <div class="plan-header-card alimentacion">
-        <div class="plan-icon">🥗</div>
-        <div>
-          <div class="plan-titulo">Plan de Alimentación</div>
-          <div class="plan-subtitulo">${pa.calorias_diarias || ''} · 7 días personalizados</div>
-        </div>
-      </div>
-      ${principiosHTML ? `<div class="card"><div class="result-section-title">📌 Principios clave para ti</div>${principiosHTML}</div>` : ''}
-      ${tablaAlimentacion}
-
-      <div class="plan-header-card ejercicio">
-        <div class="plan-icon">🏃</div>
-        <div>
-          <div class="plan-titulo">Plan de Ejercicio · 12 Semanas</div>
-          <div class="plan-subtitulo">${pe.nivel_actual || ''}</div>
-        </div>
-      </div>
-      <div class="card" style="margin-bottom:14px">
-        <div class="result-section-title">🎯 Tu objetivo</div>
-        <p style="font-size:0.88rem;color:var(--muted);line-height:1.6;">${pe.objetivo || ''}</p>
-      </div>
-      ${fasesHTML}
-
       <div class="cierre-card"><p>✨ ${r.mensaje_cierre}</p></div>
 
-      <div class="advertencia"><strong>⚠️ Aviso médico:</strong> Este plan es orientativo y no reemplaza la consulta con un profesional de la salud. Consulta a tu médico antes de iniciar cualquier plan.</div>
+      <div class="advertencia"><strong>⚠️ Aviso:</strong> Esta radiografía es orientativa y no reemplaza la consulta médica presencial. Las recomendaciones de los planes pagos son asesorías en hábitos saludables, no constituyen consulta médica de telemedicina.</div>
+
+      <!-- ==== MURO DE PAGO ==== -->
+      <div class="planes-intro">
+        <div class="planes-eyebrow">Siguiente paso</div>
+        <div class="planes-titulo">¿Listo para tu plan completo de 90 días?</div>
+        <div class="planes-subtitulo">Recibe un plan de alimentación de 7 días con menús detallados y un plan de ejercicio progresivo de 4 semanas, personalizado para tu caso.</div>
+      </div>
+
+      <div class="planes-grid">
+        <div class="plan-card">
+          <div class="plan-nombre">PDF Plan 90</div>
+          <div class="plan-precio"><span class="moneda">COP</span>$35.000</div>
+          <ul class="plan-features">
+            <li>Plan de alimentación 7 días con gramos exactos</li>
+            <li>Plan de ejercicio 4 semanas progresivas</li>
+            <li>Principios y metas personalizadas</li>
+            <li>PDF descargable para tu celular</li>
+          </ul>
+          <button class="btn-plan" onclick="iniciarPago('pdf')">Comprar PDF Plan 90</button>
+        </div>
+
+        <div class="plan-card destacado">
+          <div class="plan-nombre">Asesoría de Bienestar</div>
+          <div class="plan-precio"><span class="moneda">COP</span>$110.000</div>
+          <ul class="plan-features">
+            <li>Todo lo del PDF Plan 90</li>
+            <li>1 sesión personal de 45 min por videollamada</li>
+            <li>Revisión y ajuste del plan a tu realidad</li>
+            <li>Solicitud de exámenes básicos si aplica</li>
+          </ul>
+          <button class="btn-plan destacado" onclick="iniciarPago('asesoria')">Comprar Asesoría</button>
+        </div>
+
+        <div class="plan-card">
+          <div class="plan-nombre">Acompañamiento</div>
+          <div class="plan-precio"><span class="moneda">COP</span>$180.000</div>
+          <ul class="plan-features">
+            <li>Todo lo de la Asesoría de Bienestar</li>
+            <li>Segunda sesión a las 4-6 semanas</li>
+            <li>Acceso por WhatsApp por 60 días para dudas</li>
+            <li>Revisión de exámenes y ajustes al plan</li>
+          </ul>
+          <button class="btn-plan" onclick="iniciarPago('acompanamiento')">Comprar Acompañamiento</button>
+        </div>
+      </div>
 
       <button class="btn-secondary" onclick="nuevaEvaluacion()">← Nueva evaluación</button>
     `;
@@ -631,50 +582,25 @@
     div.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
+  // Placeholder hasta integrar pasarela real (Wompi/Bold/PayU)
+  function iniciarPago(plan) {
+    const planes = {
+      pdf: 'PDF Plan 90 ($35.000)',
+      asesoria: 'Asesoría de Bienestar ($110.000)',
+      acompanamiento: 'Acompañamiento ($180.000)'
+    };
+    alert('Plan seleccionado: ' + planes[plan] + '\n\nMuy pronto podrás pagar directo en la app. Por ahora escríbenos a contacto@medidats.com para activar tu plan.');
+  }
+
   function nuevaEvaluacion() {
     const div = document.getElementById('resultado');
     div.classList.remove('show');
     div.innerHTML = '';
     document.getElementById('formCard').style.display = 'block';
     document.getElementById('btnEvaluar').disabled = false;
+    datosPacienteActual = null;
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
-
-  window.addEventListener('DOMContentLoaded', () => {
-    const params = new URLSearchParams(window.location.search);
-    if (params.toString().length === 0) return;
-
-    const setVal = (id, val) => {
-      const el = document.getElementById(id);
-      if (el && val) el.value = val;
-    };
-
-    setVal('nombre', params.get('nombre'));
-    setVal('edad', params.get('edad'));
-    setVal('peso', params.get('peso'));
-    setVal('talla', params.get('talla'));
-    setVal('cintura', params.get('cintura'));
-    setVal('cadera', params.get('cadera'));
-    setVal('antecedentes', params.get('antecedentes'));
-    setVal('habitos', params.get('habitos'));
-
-    const sexoParam = params.get('sexo');
-    if (sexoParam) {
-      const sexoSelect = document.getElementById('sexo');
-      if (sexoSelect) {
-        for (let option of sexoSelect.options) {
-          if (option.value.toLowerCase() === sexoParam.toLowerCase()) {
-            sexoSelect.value = option.value;
-            break;
-          }
-        }
-      }
-    }
-
-    if (params.get('edad') && params.get('peso') && params.get('talla') && params.get('sexo')) {
-      setTimeout(() => evaluarPeso(), 500);
-    }
-  });
 </script>
 </body>
 </html>
