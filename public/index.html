@@ -74,21 +74,6 @@
       opacity: 0.12;
     }
     .hero-inner { position: relative; max-width: 640px; margin: 0 auto; }
-    .hero-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(0,170,255,0.15);
-      border: 1px solid rgba(0,170,255,0.25);
-      color: #7ed4ff;
-      font-size: 0.72rem;
-      font-weight: 700;
-      padding: 5px 14px;
-      border-radius: 20px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      margin-bottom: 20px;
-    }
     .hero h1 {
       font-size: clamp(1.6rem, 4vw, 2.2rem);
       font-weight: 800;
@@ -209,26 +194,54 @@
     #resultado { display: none; }
     #resultado.show { display: block; }
 
-    .result-hero {
+    /* ==== EDAD BIOLOGICA - DATO ESTRELLA ==== */
+    .edad-card {
       background: linear-gradient(135deg, var(--navy) 0%, #162e6b 100%);
       border-radius: 16px;
-      padding: 28px;
+      padding: 36px 28px;
       color: var(--white);
       margin-bottom: 14px;
       position: relative;
       overflow: hidden;
+      text-align: center;
     }
-    .result-hero::after { content: ''; position: absolute; width: 220px; height: 220px; background: radial-gradient(circle, rgba(0,170,255,0.18) 0%, transparent 70%); bottom: -60px; right: -40px; border-radius: 50%; }
-    .result-eyebrow { font-size: 0.7rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 8px; }
-    .result-mensaje { font-size: 1.0rem; font-weight: 500; line-height: 1.65; color: rgba(255,255,255,0.92); margin-bottom: 18px; }
+    .edad-card::after { content: ''; position: absolute; width: 280px; height: 280px; background: radial-gradient(circle, rgba(0,170,255,0.2) 0%, transparent 70%); bottom: -80px; right: -60px; border-radius: 50%; }
+    .edad-eyebrow { font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.55); margin-bottom: 12px; position: relative; }
+    .edad-bio-num { font-size: 4.5rem; font-weight: 800; color: var(--cyan); line-height: 1; letter-spacing: -0.04em; margin-bottom: 4px; position: relative; }
+    .edad-bio-label { font-size: 0.95rem; color: rgba(255,255,255,0.85); font-weight: 600; margin-bottom: 18px; position: relative; }
+    .edad-diff {
+      display: inline-block;
+      padding: 7px 16px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      margin-bottom: 18px;
+      position: relative;
+    }
+    .edad-diff.peor { background: rgba(239,68,68,0.18); color: #fca5a5; border: 1px solid rgba(239,68,68,0.3); }
+    .edad-diff.mejor { background: rgba(0,200,150,0.2); color: #6ee7b7; border: 1px solid rgba(0,200,150,0.3); }
+    .edad-diff.igual { background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.9); border: 1px solid rgba(255,255,255,0.2); }
+    .edad-interpretacion { font-size: 0.92rem; line-height: 1.65; color: rgba(255,255,255,0.9); position: relative; max-width: 480px; margin: 0 auto; }
+
+    .result-hero {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 24px 26px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border);
+    }
+    .result-eyebrow { font-size: 0.7rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--primary); margin-bottom: 8px; }
+    .result-mensaje { font-size: 0.95rem; font-weight: 500; line-height: 1.65; color: var(--text); margin-bottom: 16px; }
     .imc-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-    .imc-chip { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18); border-radius: 8px; padding: 7px 14px; font-size: 0.82rem; color: rgba(255,255,255,0.85); }
-    .imc-num { font-size: 1.35rem; font-weight: 800; color: var(--cyan); }
+    .imc-chip { display: inline-flex; align-items: center; gap: 6px; background: var(--muted-bg); border: 1px solid var(--border); border-radius: 8px; padding: 7px 14px; font-size: 0.82rem; color: var(--text); }
+    .imc-num { font-size: 1.35rem; font-weight: 800; color: var(--primary); }
     .risk-badge { display: inline-block; padding: 5px 12px; border-radius: 20px; font-size: 0.68rem; font-weight: 800; letter-spacing: 0.8px; text-transform: uppercase; }
-    .risk-BAJO { background: rgba(0,200,150,0.2); color: #00c896; border: 1px solid rgba(0,200,150,0.3); }
-    .risk-MODERADO { background: rgba(255,179,71,0.2); color: #f59e0b; border: 1px solid rgba(255,179,71,0.3); }
-    .risk-ALTO { background: rgba(255,107,107,0.2); color: #ef4444; border: 1px solid rgba(255,107,107,0.3); }
-    .risk-MUY_ALTO { background: rgba(220,38,38,0.2); color: #dc2626; border: 1px solid rgba(220,38,38,0.3); }
+    .risk-BAJO { background: rgba(0,200,150,0.15); color: #00875a; border: 1px solid rgba(0,200,150,0.3); }
+    .risk-MODERADO { background: rgba(255,179,71,0.18); color: #b45309; border: 1px solid rgba(255,179,71,0.3); }
+    .risk-ALTO { background: rgba(255,107,107,0.18); color: #b91c1c; border: 1px solid rgba(255,107,107,0.3); }
+    .risk-MUY_ALTO { background: rgba(220,38,38,0.18); color: #991b1b; border: 1px solid rgba(220,38,38,0.3); }
 
     .result-section-title { font-size: 0.9rem; font-weight: 700; color: var(--text); margin-bottom: 14px; }
     .list-item { display: flex; align-items: flex-start; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.875rem; line-height: 1.55; color: var(--text); }
@@ -246,7 +259,7 @@
     .advertencia { background: #fffbeb; border: 1px solid #fde68a; border-radius: var(--radius); padding: 13px 16px; font-size: 0.76rem; color: #78350f; line-height: 1.6; margin-bottom: 20px; }
     .advertencia strong { font-weight: 700; }
 
-    /* ==== MURO DE PAGO / PLANES ==== */
+    /* ==== MURO DE PAGO ==== */
     .planes-intro {
       background: linear-gradient(135deg, #0d4a1a 0%, #1a7a30 100%);
       border-radius: 16px;
@@ -258,8 +271,8 @@
       overflow: hidden;
     }
     .planes-intro::after { content: ''; position: absolute; width: 200px; height: 200px; background: radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 70%); top: -60px; right: -40px; border-radius: 50%; }
-    .planes-eyebrow { font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.7); margin-bottom: 8px; }
-    .planes-titulo { font-size: 1.35rem; font-weight: 800; line-height: 1.3; margin-bottom: 10px; }
+    .planes-eyebrow { font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.7); margin-bottom: 8px; position: relative; }
+    .planes-titulo { font-size: 1.35rem; font-weight: 800; line-height: 1.3; margin-bottom: 10px; position: relative; }
     .planes-subtitulo { font-size: 0.9rem; line-height: 1.6; color: rgba(255,255,255,0.88); position: relative; }
 
     .planes-grid { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
@@ -333,6 +346,7 @@
       .form-grid { grid-template-columns: 1fr; }
       .hero { padding: 28px 16px 36px; }
       main { margin-top: 0; }
+      .edad-bio-num { font-size: 3.6rem; }
     }
   </style>
 </head>
@@ -345,9 +359,8 @@
 
 <div class="hero">
   <div class="hero-inner">
-    <div class="hero-tag">Evaluación gratuita</div>
-    <h1>Conoce el estado real de tu salud</h1>
-    <p>Ingresa tus datos y recibe tu radiografía de salud personalizada con análisis médico claro y orientación inicial.</p>
+    <h1>Descubre qué edad tiene tu cuerpo</h1>
+    <p>Ingresa tus datos y recibe tu edad biológica estimada con un análisis personalizado de tu salud metabólica.</p>
   </div>
 </div>
 
@@ -421,7 +434,7 @@
     </div>
 
     <button class="btn-primary" id="btnEvaluar" onclick="evaluarPeso()">
-      Obtener mi radiografía gratis
+      Calcular mi edad biológica
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </button>
     <div class="error-msg" id="errorMsg"></div>
@@ -429,7 +442,7 @@
 
   <div id="loading">
     <div class="spinner"></div>
-    <p>Analizando tus datos…</p>
+    <p>Calculando tu edad biológica…</p>
   </div>
 
   <div id="resultado"></div>
@@ -441,8 +454,36 @@
 </footer>
 
 <script>
-  // Variable global para guardar los datos del paciente y poder pedir el plan premium después del pago
   let datosPacienteActual = null;
+
+  // ==== PRE-LLENADO POR URL ====
+  // Lee parametros como: ?nombre=Juan&edad=35&sexo=Masculino&peso=80&talla=175&cintura=92&cadera=98&antecedentes=...&habitos=...&autorun=1
+  function prellenarDesdeURL() {
+    const params = new URLSearchParams(window.location.search);
+    const campos = ['nombre','edad','sexo','peso','talla','cintura','cadera','antecedentes','habitos'];
+    let hayDatos = false;
+    campos.forEach(c => {
+      const valor = params.get(c);
+      if (valor !== null && valor !== '') {
+        const el = document.getElementById(c);
+        if (el) {
+          el.value = valor;
+          hayDatos = true;
+        }
+      }
+    });
+    // Si viene autorun=1 y tiene los datos minimos, dispara la evaluacion automaticamente
+    if (hayDatos && params.get('autorun') === '1') {
+      const edad = document.getElementById('edad').value;
+      const sexo = document.getElementById('sexo').value;
+      const peso = document.getElementById('peso').value;
+      const talla = document.getElementById('talla').value;
+      if (edad && sexo && peso && talla) {
+        setTimeout(evaluarPeso, 300);
+      }
+    }
+  }
+  document.addEventListener('DOMContentLoaded', prellenarDesdeURL);
 
   async function evaluarPeso() {
     const edad = document.getElementById('edad').value;
@@ -467,7 +508,6 @@
       habitos: document.getElementById('habitos').value
     };
 
-    // Guardamos los datos para usarlos cuando el usuario pague el plan premium
     datosPacienteActual = datos;
 
     document.getElementById('btnEvaluar').disabled = true;
@@ -483,7 +523,7 @@
       const data = await res.json();
       if (!data.ok) throw new Error(data.error || 'Error desconocido');
       document.getElementById('loading').classList.remove('show');
-      mostrarRadiografia(data, datos.nombre);
+      mostrarRadiografia(data, datos);
     } catch (e) {
       document.getElementById('loading').classList.remove('show');
       document.getElementById('formCard').style.display = 'block';
@@ -493,10 +533,24 @@
     }
   }
 
-  function mostrarRadiografia(data, nombre) {
+  function mostrarRadiografia(data, datos) {
     const { imc, resultado: r } = data;
-    const nombreDisplay = nombre || 'tu evaluación';
+    const nombre = datos.nombre || 'tu evaluación';
+    const edadCrono = parseInt(datos.edad);
+    const edadBio = r.edad_biologica;
+    const diff = r.diferencia_edad;
     const riskKey = (r.categoria_riesgo || '').replace(' ', '_');
+
+    // Texto y clase para el chip de diferencia
+    let diffClass = 'igual';
+    let diffTexto = 'Tu cuerpo está justo en tu edad';
+    if (diff > 0) {
+      diffClass = 'peor';
+      diffTexto = `+${diff} años por encima de tu edad real (${edadCrono})`;
+    } else if (diff < 0) {
+      diffClass = 'mejor';
+      diffTexto = `${Math.abs(diff)} años más joven que tu edad real (${edadCrono})`;
+    }
 
     const hallazgosHTML = (r.hallazgos || []).map(h =>
       `<div class="list-item"><div class="dot"></div><span>${h}</span></div>`
@@ -507,8 +561,17 @@
     ).join('');
 
     const html = `
+      <!-- ==== EDAD BIOLOGICA - DATO ESTRELLA ==== -->
+      <div class="edad-card">
+        <div class="edad-eyebrow">Edad biológica estimada · ${nombre}</div>
+        <div class="edad-bio-num">${edadBio}</div>
+        <div class="edad-bio-label">años</div>
+        <div class="edad-diff ${diffClass}">${diffTexto}</div>
+        <div class="edad-interpretacion">${r.interpretacion_edad || ''}</div>
+      </div>
+
       <div class="result-hero">
-        <div class="result-eyebrow">Radiografía de salud · ${nombreDisplay}</div>
+        <div class="result-eyebrow">Mensaje del Dr. Pulecio</div>
         <div class="result-mensaje">${r.mensaje_principal}</div>
         <div class="imc-row">
           <div class="imc-chip">IMC <span class="imc-num">${imc}</span> · ${r.clasificacion_imc}</div>
@@ -526,12 +589,12 @@
 
       <div class="cierre-card"><p>✨ ${r.mensaje_cierre}</p></div>
 
-      <div class="advertencia"><strong>⚠️ Aviso:</strong> Esta radiografía es orientativa y no reemplaza la consulta médica presencial. Las recomendaciones de los planes pagos son asesorías en hábitos saludables, no constituyen consulta médica de telemedicina.</div>
+      <div class="advertencia"><strong>⚠️ Aviso:</strong> Esta evaluación es orientativa y no reemplaza la consulta médica presencial. La edad biológica es una estimación basada en IMC, medidas corporales y hábitos, no un diagnóstico médico. Las asesorías son orientación en hábitos saludables, no consulta de telemedicina.</div>
 
       <!-- ==== MURO DE PAGO ==== -->
       <div class="planes-intro">
         <div class="planes-eyebrow">Siguiente paso</div>
-        <div class="planes-titulo">¿Listo para tu plan completo de 90 días?</div>
+        <div class="planes-titulo">¿Listo para rejuvenecer tu cuerpo en 90 días?</div>
         <div class="planes-subtitulo">Recibe un plan de alimentación de 7 días con menús detallados y un plan de ejercicio progresivo de 4 semanas, personalizado para tu caso.</div>
       </div>
 
@@ -582,7 +645,6 @@
     div.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
-  // Placeholder hasta integrar pasarela real (Wompi/Bold/PayU)
   function iniciarPago(plan) {
     const planes = {
       pdf: 'PDF Plan 90 ($35.000)',
