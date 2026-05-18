@@ -11,7 +11,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
 // ============================================
-// ENDPOINT 1: RADIOGRAFIA (GRATIS)
+// ENDPOINT 1: RADIOGRAFIA (GRATIS) - con EDAD BIOLOGICA
 // ============================================
 app.post('/api/radiografia', async (req, res) => {
   const { nombre, edad, sexo, peso, talla, cintura, cadera, antecedentes, habitos } = req.body;
@@ -25,11 +25,21 @@ app.post('/api/radiografia', async (req, res) => {
   const icc = (cintura && cadera) ? (parseFloat(cintura) / parseFloat(cadera)).toFixed(2) : null;
 
   const prompt = `Eres el Dr. Nicolas Pulecio Leal, medico general especializado en medicina preventiva y manejo del peso.
-Genera una RADIOGRAFIA DE SALUD breve pero impactante para este paciente. NO incluyas plan de alimentacion ni plan de ejercicio (eso es para el reporte premium pago).
+Genera una RADIOGRAFIA DE SALUD BIOLOGICA breve pero impactante. El dato estrella es la EDAD BIOLOGICA/METABOLICA estimada del paciente comparada con su edad cronologica.
+
+NO incluyas plan de alimentacion ni plan de ejercicio (eso es para el reporte premium pago).
+
+REGLAS PARA CALCULAR LA EDAD BIOLOGICA:
+- Edad cronologica del paciente: ${edad} anos
+- Tomando en cuenta IMC, relacion cintura/talla, indice cintura/cadera, antecedentes y habitos, estima cuantos anos "aparenta" tener su cuerpo desde el punto de vista metabolico y cardiovascular.
+- Si el paciente tiene IMC alto, cintura grande, mala alimentacion, sedentarismo o antecedentes cronicos: edad biologica MAYOR a la cronologica.
+- Si el paciente tiene IMC normal, buenos habitos y poca cintura: edad biologica IGUAL o MENOR a la cronologica.
+- El rango realista: edad biologica puede ir desde 10 anos menos hasta 20 anos mas que la cronologica.
+- Devuelve un numero entero como edad biologica estimada.
 
 DATOS DEL PACIENTE:
 - Nombre: ${nombre || 'Paciente'}
-- Edad: ${edad} anos
+- Edad cronologica: ${edad} anos
 - Sexo: ${sexo}
 - Peso: ${peso} kg
 - Talla: ${talla} cm
@@ -41,15 +51,21 @@ ${icc ? `- Indice cintura/cadera: ${icc}` : ''}
 ${antecedentes ? `- Antecedentes: ${antecedentes}` : ''}
 ${habitos ? `- Habitos actuales: ${habitos}` : ''}
 
-Responde UNICAMENTE con JSON valido. Sin markdown, sin backticks, sin texto extra. El JSON debe tener esta estructura exacta:
-{"clasificacion_imc":"texto","categoria_riesgo":"BAJO|MODERADO|ALTO|MUY ALTO","mensaje_principal":"texto motivacional 2-3 lineas","hallazgos":["h1","h2","h3","h4"],"riesgos":["r1","r2","r3"],"meta_peso_ideal":"texto con rango de peso ideal en kg","mensaje_cierre":"texto motivacional para cerrar la radiografia 2-3 lineas, invitando a tomar el siguiente paso"}
+Responde UNICAMENTE con JSON valido. Sin markdown, sin backticks, sin texto extra. Estructura exacta:
+{"edad_biologica":47,"diferencia_edad":12,"interpretacion_edad":"texto explicando que significa esa edad biologica vs cronologica, 2-3 lineas, claro y empatico","clasificacion_imc":"texto","categoria_riesgo":"BAJO|MODERADO|ALTO|MUY ALTO","mensaje_principal":"texto motivacional 2-3 lineas que mencione la edad biologica","hallazgos":["h1","h2","h3","h4"],"riesgos":["r1","r2","r3"],"meta_peso_ideal":"texto con rango de peso ideal en kg","mensaje_cierre":"texto motivacional para cerrar, invitando a tomar el siguiente paso 2-3 lineas"}
 
-Reemplaza todos los valores "texto", "h1", etc. con contenido REAL, personalizado para este paciente especifico segun su IMC, antecedentes y habitos. Lenguaje claro, empatico, en espanol neutral. Los hallazgos deben ser interpretacion de IMC, ICT, ICC y antecedentes. Los riesgos deben ser concretos (riesgo cardiovascular, metabolico, etc.).`;
+REGLAS DEL JSON:
+- "edad_biologica" es un NUMERO ENTERO (sin comillas, ej: 47).
+- "diferencia_edad" es la diferencia (edad_biologica - edad_cronologica). Puede ser negativo si el paciente esta mejor que su edad. Ej: 12 significa 12 anos por encima. -3 significa 3 anos mas joven biologicamente.
+- "interpretacion_edad" explica al paciente que significa ese numero, con empatia.
+- Los hallazgos deben ser interpretacion de IMC, ICT, ICC y antecedentes.
+- Los riesgos deben ser concretos (riesgo cardiovascular, metabolico, etc.).
+- Lenguaje claro, empatico, espanol neutral. Personalizado segun los datos del paciente.`;
 
   try {
     const response = await client.messages.create({
       model: 'claude-sonnet-4-5',
-      max_tokens: 2000,
+      max_tokens: 2500,
       messages: [{ role: 'user', content: prompt }]
     });
 
@@ -70,7 +86,6 @@ Reemplaza todos los valores "texto", "h1", etc. con contenido REAL, personalizad
 app.post('/api/plan-premium', async (req, res) => {
   const { nombre, edad, sexo, peso, talla, cintura, cadera, antecedentes, habitos, pagoConfirmado } = req.body;
 
-  // Validacion basica de pago - en produccion conectar con pasarela real
   if (!pagoConfirmado) {
     return res.status(403).json({ error: 'Pago no confirmado' });
   }
@@ -87,11 +102,11 @@ Genera el PLAN PREMIUM 90 DIAS para este paciente: plan de alimentacion 7 dias +
 REGLAS OBLIGATORIAS PARA EL PLAN DE ALIMENTACION:
 1. Usa SOLO alimentos universales disponibles en cualquier supermercado del mundo: pollo, pescado, atun, huevo, arroz, avena, quinoa, pasta integral, pan integral, frijoles, lentejas, garbanzos, frutas comunes (manzana, banano, naranja, fresa, piña, papaya), verduras comunes (lechuga, tomate, zanahoria, brocoli, espinaca, pepino, cebolla, pimenton), aceite de oliva, yogur natural, queso bajo en grasa, leche descremada, almendras, nueces, semillas.
 2. PROHIBIDO usar alimentos regionales: NO arepa, NO changua, NO papa criolla, NO platano verde, NO patacones, NO ajiaco, NO sancocho, NO tamales, NO buñuelos, NO maracuya, NO lulo, NO guanabana.
-3. Cada comida DEBE especificar GRAMOS EXACTOS o porciones medidas. Ejemplos correctos:
-   - "120 g de pechuga de pollo a la plancha + 1/2 taza (100 g) de arroz integral cocido + 2 tazas de ensalada (lechuga, tomate, pepino) con 1 cucharada de aceite de oliva"
+3. Cada comida DEBE especificar GRAMOS EXACTOS o porciones medidas. Ejemplos:
+   - "120 g de pechuga de pollo a la plancha + 1/2 taza (100 g) de arroz integral cocido + 2 tazas de ensalada con 1 cucharada de aceite de oliva"
    - "2 huevos revueltos + 1 rebanada de pan integral + 1 manzana mediana + 1 taza de te verde sin azucar"
 4. PROHIBIDO terminos vagos: NO "algo magro", NO "una proteina", NO "porcion moderada". SIEMPRE alimento concreto con cantidad.
-5. Lenguaje claro y simple. Las opciones alternativas tambien con cantidades exactas.
+5. Lenguaje claro y simple.
 
 REGLAS OBLIGATORIAS PARA EL PLAN DE EJERCICIO:
 1. PROHIBIDO usar anglicismos. Traduce siempre:
@@ -111,8 +126,6 @@ REGLAS OBLIGATORIAS PARA EL PLAN DE EJERCICIO:
    - Warm-up → "calentamiento"
    - Cool-down → "estiramiento final"
 2. Cada dia DEBE incluir: tipo de ejercicio, duracion total, ejercicios especificos con NUMERO DE REPETICIONES, NUMERO DE SERIES y TIEMPO DE DESCANSO entre series.
-3. Ejemplo: "Caminata rapida 30 minutos + circuito de fuerza: 3 series de 15 sentadillas, 10 flexiones de pecho (apoyadas en rodillas si es necesario), 20 abdominales y 30 segundos de plancha. Descansa 60 segundos entre series."
-4. Lenguaje claro, sin jerga de gimnasio.
 
 DATOS DEL PACIENTE:
 - Nombre: ${nombre || 'Paciente'}
@@ -126,10 +139,10 @@ ${cadera ? `- Cadera: ${cadera} cm` : ''}
 ${antecedentes ? `- Antecedentes: ${antecedentes}` : ''}
 ${habitos ? `- Habitos actuales: ${habitos}` : ''}
 
-Responde UNICAMENTE con JSON valido. Sin markdown, sin backticks, sin texto extra. Estructura exacta:
+Responde UNICAMENTE con JSON valido. Sin markdown, sin backticks. Estructura exacta:
 {"plan_alimentacion":{"calorias_diarias":"texto","principios":["p1","p2","p3"],"semana":[{"dia":"Lunes","desayuno":{"nombre":"texto","descripcion":"texto con gramos exactos","opciones":["op1 con gramos","op2 con gramos"]},"media_manana":"texto con gramos","almuerzo":{"nombre":"texto","descripcion":"texto con gramos exactos","opciones":["op1 con gramos"]},"merienda":"texto con gramos","cena":{"nombre":"texto","descripcion":"texto con gramos exactos","opciones":["op1 con gramos"]}},{"dia":"Martes","desayuno":{"nombre":"texto","descripcion":"texto con gramos","opciones":["op1"]},"media_manana":"texto con gramos","almuerzo":{"nombre":"texto","descripcion":"texto con gramos","opciones":["op1"]},"merienda":"texto con gramos","cena":{"nombre":"texto","descripcion":"texto con gramos","opciones":["op1"]}},{"dia":"Miercoles","desayuno":{"nombre":"texto","descripcion":"texto con gramos","opciones":["op1"]},"media_manana":"texto con gramos","almuerzo":{"nombre":"texto","descripcion":"texto con gramos","opciones":["op1"]},"merienda":"texto con gramos","cena":{"nombre":"texto","descripcion":"texto con gramos","opciones":["op1"]}},{"dia":"Jueves","desayuno":{"nombre":"texto","descripcion":"texto con gramos","opciones":["op1"]},"media_manana":"texto con gramos","almuerzo":{"nombre":"texto","descripcion":"texto con gramos","opciones":["op1"]},"merienda":"texto con gramos","cena":{"nombre":"texto","descripcion":"texto con gramos","opciones":["op1"]}},{"dia":"Viernes","desayuno":{"nombre":"texto","descripcion":"texto con gramos","opciones":["op1"]},"media_manana":"texto con gramos","almuerzo":{"nombre":"texto","descripcion":"texto con gramos","opciones":["op1"]},"merienda":"texto con gramos","cena":{"nombre":"texto","descripcion":"texto con gramos","opciones":["op1"]}},{"dia":"Sabado","desayuno":{"nombre":"texto","descripcion":"texto con gramos","opciones":["op1"]},"media_manana":"texto con gramos","almuerzo":{"nombre":"texto","descripcion":"texto con gramos","opciones":["op1"]},"merienda":"texto con gramos","cena":{"nombre":"texto","descripcion":"texto con gramos","opciones":["op1"]}},{"dia":"Domingo","desayuno":{"nombre":"texto","descripcion":"texto con gramos","opciones":["op1"]},"media_manana":"texto con gramos","almuerzo":{"nombre":"texto","descripcion":"texto con gramos","opciones":["op1"]},"merienda":"texto con gramos","cena":{"nombre":"texto","descripcion":"texto con gramos","opciones":["op1"]}}]},"plan_ejercicio":{"nivel_actual":"texto","objetivo":"texto","semanas":[{"semana":1,"titulo":"Adaptacion","descripcion":"texto","dias":[{"dia":"Lunes","tipo":"texto","duracion":"texto","actividad":"texto con repeticiones series y descansos en espanol claro"},{"dia":"Martes","tipo":"texto","duracion":"texto","actividad":"texto con repeticiones series y descansos en espanol claro"},{"dia":"Miercoles","tipo":"texto","duracion":"texto","actividad":"texto con repeticiones series y descansos en espanol claro"},{"dia":"Jueves","tipo":"Descanso","duracion":"-","actividad":"Descanso completo"},{"dia":"Viernes","tipo":"texto","duracion":"texto","actividad":"texto con repeticiones series y descansos en espanol claro"},{"dia":"Sabado","tipo":"texto","duracion":"texto","actividad":"texto con repeticiones series y descansos en espanol claro"},{"dia":"Domingo","tipo":"Descanso","duracion":"-","actividad":"Descanso completo"}]},{"semana":2,"titulo":"Progresion","descripcion":"texto","dias":[{"dia":"Lunes","tipo":"texto","duracion":"texto","actividad":"texto con repeticiones series y descansos"},{"dia":"Martes","tipo":"texto","duracion":"texto","actividad":"texto con repeticiones series y descansos"},{"dia":"Miercoles","tipo":"texto","duracion":"texto","actividad":"texto con repeticiones series y descansos"},{"dia":"Jueves","tipo":"Descanso","duracion":"-","actividad":"Descanso completo"},{"dia":"Viernes","tipo":"texto","duracion":"texto","actividad":"texto con repeticiones series y descansos"},{"dia":"Sabado","tipo":"texto","duracion":"texto","actividad":"texto con repeticiones series y descansos"},{"dia":"Domingo","tipo":"Descanso","duracion":"-","actividad":"Descanso completo"}]},{"semana":3,"titulo":"Consolidacion","descripcion":"texto","dias":[{"dia":"Lunes","tipo":"texto","duracion":"texto","actividad":"texto con repeticiones series y descansos"},{"dia":"Martes","tipo":"texto","duracion":"texto","actividad":"texto con repeticiones series y descansos"},{"dia":"Miercoles","tipo":"texto","duracion":"texto","actividad":"texto con repeticiones series y descansos"},{"dia":"Jueves","tipo":"Descanso","duracion":"-","actividad":"Descanso completo"},{"dia":"Viernes","tipo":"texto","duracion":"texto","actividad":"texto con repeticiones series y descansos"},{"dia":"Sabado","tipo":"texto","duracion":"texto","actividad":"texto con repeticiones series y descansos"},{"dia":"Domingo","tipo":"Descanso","duracion":"-","actividad":"Descanso completo"}]},{"semana":4,"titulo":"Intensificacion","descripcion":"texto","dias":[{"dia":"Lunes","tipo":"texto","duracion":"texto","actividad":"texto con repeticiones series y descansos"},{"dia":"Martes","tipo":"texto","duracion":"texto","actividad":"texto con repeticiones series y descansos"},{"dia":"Miercoles","tipo":"texto","duracion":"texto","actividad":"texto con repeticiones series y descansos"},{"dia":"Jueves","tipo":"Descanso","duracion":"-","actividad":"Descanso completo"},{"dia":"Viernes","tipo":"texto","duracion":"texto","actividad":"texto con repeticiones series y descansos"},{"dia":"Sabado","tipo":"texto","duracion":"texto","actividad":"texto con repeticiones series y descansos"},{"dia":"Domingo","tipo":"Descanso","duracion":"-","actividad":"Descanso completo"}]}]}}
 
-Personalizado para este paciente especifico segun su IMC, antecedentes y habitos. Todo en espanol neutral y claro.`;
+Personalizado para este paciente especifico segun su IMC, antecedentes y habitos. Espanol neutral.`;
 
   try {
     const response = await client.messages.create({
@@ -149,7 +162,7 @@ Personalizado para este paciente especifico segun su IMC, antecedentes y habitos
   }
 });
 
-// Compatibilidad con endpoint viejo (redirige a radiografia)
+// Compatibilidad con endpoint viejo
 app.post('/api/evaluar', async (req, res) => {
   req.url = '/api/radiografia';
   app._router.handle(req, res);
